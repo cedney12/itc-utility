@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> useModalManager.jsx</title>
+  <title> useQueryData</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -79,113 +77,324 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>useModalManager.jsx</h1>
+                    <p>Module</p>
+                    <h1>useQueryData</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import { useState } from "react"
+        
+            
+        
+    
+</header>
 
-/**
- * Custom hook that manages the state of modals on a page.
- * @param {Object.&lt;string, JSX.Element>} modalConfig 
- * @category Hooks
- * @module useModalManager
- * @example
- * import Modal1 from './Modal1'
- * import Modal2 from './Modal2'
- * 
- * const Page = () => {
- *     const { openModal, renderModal } = useModalManager({
- *         "modal1": Modal1
- *         "modal2": Modal2
- *     })
- * 
- *     const modal1Props = {
- *         data: { id: 1, name: "John Doe"},
- *         otherData: { id: 1, name: "Jane Doe"}
- *     }
- * 
- *     return (
- *         &lt;div>
- *             &lt;button 
- *                 // Pass in the props for the component when you open the modal
- *                 onClick={() => openModal("modal1", {
- *                     data: modal1Props["data"]
- *                     otherData: modal1Props["otherData"]
- *                 })}
- *             >
- *                 Open Modal 1
- *             &lt;/button>
- *             &lt;button
- *                 // If no props are necessary for the component, don't pass in anything
- *                 onClick={() => openModal("modal2")}
- *             >
- *                 Open Modal 2
- *             &lt;/button>
- *             {renderModal()} // Then use the `renderModal` function to render
- *         &lt;/div>
- *     )
- * }
- */
-const useModalManager = (modalConfig) => {
-    const [modalState, setModalState] = useState({ type: null, props: {} })
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Custom Hook that uses React-Query to fetch and cache data, using
+the URL as the query key</p></div>
+        
 
-    /**
-     * Method to open a modal of a specific type with optional props
-     * 
-     * NOTE: Ensure the modal being opened is present in `modalConfig`
-     * 
-     * @param {string} type Type of modal to open
-     * @param {object} props Props to be passed to the modal component
-     */
-    const openModal = (type, props = {}) => {
-        if (!modalConfig[type]) {
-            console.warn(`Modal type "${type}" is not defined in the configuration`)
-            return
-        }
-        setModalState({ type, props })
-    }
+        
+            
 
-    const closeModal = () => setModalState({ type: null, props: {} })
 
-    /**
-     * Renders the modal dictated by the current state
-     * 
-     * @returns JSX.Element
-     */
-    const renderModal = () => {
-        const { type, props } = modalState
-        if (!type || !modalConfig[type]) return null
 
-        const ModalComponent = modalConfig[type]
-        return (
-            &lt;ModalComponent
-                open={true}
-                onClose={closeModal}
-                {...props}
-            />
-        )
-    }
 
-    const isModalOpen = (type) => modalState.type === type
 
-    return {
-        openModal,
-        closeModal,
-        renderModal,
-        isModalOpen
-    }
-}
 
-export default useModalManager</code></pre>
-        </article>
-    </section>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>endpoint</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>options</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">object</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>staleTime</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>Time by which the data goes stale and must be recalled, in ms</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>retry</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>If <code>true</code>, retries infinitely. If <code>false</code>, never retries. If a number, retries that many times</p></td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="useQueryData.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="useQueryData.jsx.html">useQueryData.jsx</a>, <a href="useQueryData.jsx.html#line6">line 6</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">UseQueryResult</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

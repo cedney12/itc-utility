@@ -1,6 +1,6 @@
 {
     "name": "itc-utility",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Components, Hooks, and Functions that are common amongst our projects.",
     "main": "dist/index.js",
     "types": "types/index.d.ts",
@@ -29,6 +29,9 @@
         "@babel/preset-react": "^7.26.3"
     },
     "dependencies": {
+        "@tanstack/react-query": "^5.67.3",
+        "ag-grid-community": "^33.1.1",
+        "axios": "^1.8.3",
         "better-docs": "^2.7.3",
         "jsdoc": "^4.0.4"
     }

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> useModalManager.jsx</title>
+  <title> useSelectRow.jsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>useModalManager.jsx</h1>
+                    <h1>useSelectRow.jsx</h1>
                 </header>
                 
 
@@ -89,101 +89,66 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { useState } from "react"
+            <pre class="prettyprint source linenums"><code>/* eslint-disable react-hooks/exhaustive-deps */
+import { isEmpty } from 'lodash'
+import { useEffect, useState } from 'react'
+import { RowSelectedEvent } from 'ag-grid-community'
 
 /**
- * Custom hook that manages the state of modals on a page.
- * @param {Object.&lt;string, JSX.Element>} modalConfig 
+ * Custom hook that handles commonly used functions for selected rows with an AG DataGrid.
+ * 
+ * Specifically, this will handle selecting and unselecting rows, as well as updating
+ * a row if it gets changed in the overall data. 
+ * 
+ * @param {Array.&lt;*>} data 
+ * @param {object} options
+ * @param {string} options.field
+ * @param {boolean} options.debug 
+ * @module useSelectRow
  * @category Hooks
- * @module useModalManager
- * @example
- * import Modal1 from './Modal1'
- * import Modal2 from './Modal2'
- * 
- * const Page = () => {
- *     const { openModal, renderModal } = useModalManager({
- *         "modal1": Modal1
- *         "modal2": Modal2
- *     })
- * 
- *     const modal1Props = {
- *         data: { id: 1, name: "John Doe"},
- *         otherData: { id: 1, name: "Jane Doe"}
- *     }
- * 
- *     return (
- *         &lt;div>
- *             &lt;button 
- *                 // Pass in the props for the component when you open the modal
- *                 onClick={() => openModal("modal1", {
- *                     data: modal1Props["data"]
- *                     otherData: modal1Props["otherData"]
- *                 })}
- *             >
- *                 Open Modal 1
- *             &lt;/button>
- *             &lt;button
- *                 // If no props are necessary for the component, don't pass in anything
- *                 onClick={() => openModal("modal2")}
- *             >
- *                 Open Modal 2
- *             &lt;/button>
- *             {renderModal()} // Then use the `renderModal` function to render
- *         &lt;/div>
- *     )
- * }
  */
-const useModalManager = (modalConfig) => {
-    const [modalState, setModalState] = useState({ type: null, props: {} })
+const useSelectRow = (data, options = {}) => {
+    let { field, debug } = options
+    if (!field) field = "id"
+    const [selectedRow, setSelectedRow] = useState({})
 
     /**
-     * Method to open a modal of a specific type with optional props
+     * Handles Row Selection based on RowSelectedEvent
      * 
-     * NOTE: Ensure the modal being opened is present in `modalConfig`
+     * There are a few cases in which a row can be selected:
      * 
-     * @param {string} type Type of modal to open
-     * @param {object} props Props to be passed to the modal component
+     * 1. If there is no row selected, set selectedRow to be the data
+     * 2. If there is a row selected and the user selects a different row
+     *     - Two `RowSelectedEvent`s will trigger. The first is selecting the new row,
+     *         the second is deselecting the old row. 
+     *     - Set the data to be the stored selection event's data
+     * 
+     * @param {RowSelectedEvent} params 
      */
-    const openModal = (type, props = {}) => {
-        if (!modalConfig[type]) {
-            console.warn(`Modal type "${type}" is not defined in the configuration`)
-            return
+    const handleSelectRow = (params) => {
+        const { api } = params
+        const selectedRows = api.getSelectedRows()
+        setSelectedRow(selectedRows.length > 0 ? selectedRows[0] : {})
+    }
+
+    useEffect(() => {
+        if (debug) console.log(selectedRow)
+    }, [selectedRow])
+
+    useEffect(() => {
+        if (!isEmpty(selectedRow) &amp;&amp; !isEmpty(data)) {
+            setSelectedRow(data.find(item => item[field] === selectedRow[field]) ?? {})
         }
-        setModalState({ type, props })
-    }
-
-    const closeModal = () => setModalState({ type: null, props: {} })
-
-    /**
-     * Renders the modal dictated by the current state
-     * 
-     * @returns JSX.Element
-     */
-    const renderModal = () => {
-        const { type, props } = modalState
-        if (!type || !modalConfig[type]) return null
-
-        const ModalComponent = modalConfig[type]
-        return (
-            &lt;ModalComponent
-                open={true}
-                onClose={closeModal}
-                {...props}
-            />
-        )
-    }
-
-    const isModalOpen = (type) => modalState.type === type
+    }, [data])
 
     return {
-        openModal,
-        closeModal,
-        renderModal,
-        isModalOpen
+        selectedRow,
+        setSelectedRow,
+        handleSelectRow
     }
 }
 
-export default useModalManager</code></pre>
+export default useSelectRow</code></pre>
         </article>
     </section>
 
