@@ -11,4 +11,4 @@ Install the package with
 Note: The --legacy-peer-deps flag is used for better-docs, an addition to JSDoc that provides documentation.
 
 ## Documentation
-Find documentation for all here: [Documentation]()
+Find documentation for all here: [Documentation](https://cedney12.github.io/itc-utility/)

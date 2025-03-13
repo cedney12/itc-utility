@@ -8,7 +8,7 @@ import { RowSelectedEvent } from "ag-grid-community"
  * @param options.debug Whether to log debug information.
  * @returns An object containing the selected row, setter, and selection handler.
  */
-declare module "itc-utility/dist/useSelectRow" {
+declare module "itc-utility/dist/hooks/useSelectRow" {
     export function useSelectRow<T>(
         data: T[],
         options?: { field?: keyof T; debug?: boolean }

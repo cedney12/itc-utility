@@ -6,7 +6,7 @@ import { ReactElement } from "react"
  * @param modalConfig An object mapping modal names to React components.
  * @returns An object with functions for opening, closing, rendering, and checking modal states.
  */
-declare module "itc-utility/dist/useModalManager" {
+declare module "itc-utility/dist/hooks/useModalManager" {
     export function useModalManager(
         modalConfig: Record<string, (props: any) => ReactElement>
     ): {
