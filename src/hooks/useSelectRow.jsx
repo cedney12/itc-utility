@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { isEmpty } from 'lodash'
 import { useEffect, useState } from 'react'
-import { RowSelectedEvent } from 'ag-grid-community'
 
 /**
  * Custom hook that handles commonly used functions for selected rows with an AG DataGrid.
@@ -16,7 +15,7 @@ import { RowSelectedEvent } from 'ag-grid-community'
  * @module useSelectRow
  * @category Hooks
  */
-const useSelectRow = (data, options = {}) => {
+export const useSelectRow = (data, options = {}) => {
     let { field, debug } = options
     if (!field) field = "id"
     const [selectedRow, setSelectedRow] = useState({})
@@ -32,7 +31,7 @@ const useSelectRow = (data, options = {}) => {
      *         the second is deselecting the old row. 
      *     - Set the data to be the stored selection event's data
      * 
-     * @param {RowSelectedEvent} params 
+     * @param {object} params 
      */
     const handleSelectRow = (params) => {
         const { api } = params
@@ -56,5 +55,3 @@ const useSelectRow = (data, options = {}) => {
         handleSelectRow
     }
 }
-
-export default useSelectRow

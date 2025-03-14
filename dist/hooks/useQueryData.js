@@ -1,14 +1,4 @@
-"use strict";
-
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _reactQuery = require("@tanstack/react-query");
-var _axios = _interopRequireDefault(require("axios"));
-var _react = require("react");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
@@ -22,7 +12,12 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; } /* eslint-disable react-hooks/exhaustive-deps */
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
+
 /**
  * Custom Hook that uses React-Query to fetch and cache data, using
  * the URL as the query key
@@ -37,10 +32,10 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; } /* eslint-disabl
  * @category Hooks
  * @module useQueryData
  */
-var useQueryData = function useQueryData(endpoint) {
+export var useQueryData = function useQueryData(endpoint) {
   var _options$staleTime;
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var _useState = (0, _react.useState)(endpoint),
+  var _useState = useState(endpoint),
     _useState2 = _slicedToArray(_useState, 2),
     url = _useState2[0],
     setUrl = _useState2[1];
@@ -56,7 +51,7 @@ var useQueryData = function useQueryData(endpoint) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _axios["default"].get(url);
+            return axios.get(url);
           case 2:
             _yield$axios$get = _context.sent;
             data = _yield$axios$get.data;
@@ -71,7 +66,7 @@ var useQueryData = function useQueryData(endpoint) {
       return _ref.apply(this, arguments);
     };
   }();
-  return _objectSpread(_objectSpread({}, (0, _reactQuery.useQuery)({
+  return _objectSpread(_objectSpread({}, useQuery({
     queryKey: ["data", trimUrlForKey(url)],
     queryFn: queryFn,
     staleTime: (_options$staleTime = options.staleTime) !== null && _options$staleTime !== void 0 ? _options$staleTime : 60000,
@@ -82,4 +77,3 @@ var useQueryData = function useQueryData(endpoint) {
     setUrl: setUrl
   });
 };
-var _default = exports["default"] = useQueryData;

@@ -1,9 +1,10 @@
 {
     "name": "itc-utility",
-    "version": "0.2.2",
+    "version": "0.2.12",
     "description": "Components, Hooks, and Functions that are common amongst our projects.",
     "main": "dist/index.js",
-    "types": "types/index.d.ts",
+    "types": "dist/index.d.ts",
+    "type": "module",
     "scripts": {
         "build": "babel src --out-dir dist --copy-files",
         "docs": "jsdoc -c ./.jsdoc.config.json -R README.md"
@@ -29,6 +30,7 @@
         "@babel/preset-react": "^7.26.3"
     },
     "dependencies": {
+        "@ag-grid-community/core": "^32.3.4",
         "@tanstack/react-query": "^5.67.3",
         "ag-grid-community": "^33.1.1",
         "axios": "^1.8.3",

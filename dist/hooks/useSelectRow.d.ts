@@ -1,5 +1,3 @@
-import { RowSelectedEvent } from "ag-grid-community"
-
 /**
  * Custom hook that handles row selection for an AG DataGrid.
  * @param data The dataset where rows are selected from.
@@ -27,6 +25,6 @@ declare module "itc-utility/dist/hooks/useSelectRow" {
          * Handles row selection based on an AG Grid RowSelectedEvent.
          * @param params The event parameters from AG Grid.
          */
-        handleSelectRow: (params: RowSelectedEvent) => void
+        handleSelectRow: (params: object) => void
     }
 }

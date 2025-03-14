@@ -42,7 +42,7 @@ import { useState } from "react"
  *     )
  * }
  */
-const useModalManager = (modalConfig) => {
+export const useModalManager = (modalConfig) => {
     const [modalState, setModalState] = useState({ type: null, props: {} })
 
     /**
@@ -91,5 +91,3 @@ const useModalManager = (modalConfig) => {
         isModalOpen
     }
 }
-
-export default useModalManager

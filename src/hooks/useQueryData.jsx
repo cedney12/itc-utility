@@ -17,7 +17,7 @@ import { useState } from "react"
  * @category Hooks
  * @module useQueryData
  */
-const useQueryData = (
+export const useQueryData = (
     endpoint,
     options = {}
 ) => {
@@ -46,5 +46,3 @@ const useQueryData = (
         setUrl
     }
 }
-
-export default useQueryData
