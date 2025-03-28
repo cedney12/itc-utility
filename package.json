@@ -1,6 +1,6 @@
 {
     "name": "itc-utility",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Components, Hooks, and Functions that are common amongst our projects.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

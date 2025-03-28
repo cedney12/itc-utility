@@ -13,37 +13,36 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 
 /**
  * Custom Hook that uses React-Query to fetch and cache data, using
- * the URL as the query key
+ * the URL as the query key.
  *
  * @param {string} endpoint
  * @param {object} [options]
  * @param {number} [options.staleTime] Time by which the data goes stale and must be recalled, in ms
  * @param {number} [options.retry] If `true`, retries infinitely. If `false`, never retries. If a number, retries that many times
- * @import {UseQueryResult} from '@tanstack/react-query'
- * @returns {UseQueryResult}
+ * @returns {object} { data, error, isLoading, refetch, setUrl }
  * 
  * @category Hooks
  * @module useQueryData
  */
 export var useQueryData = function useQueryData(endpoint) {
-  var _options$staleTime;
+  var _options$staleTime, _options$retry;
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var _useState = useState(endpoint),
     _useState2 = _slicedToArray(_useState, 2),
     url = _useState2[0],
     setUrl = _useState2[1];
-  var trimUrlForKey = function trimUrlForKey() {
+  var trimUrlForKey = function trimUrlForKey(url) {
     if (!url) return "";
-    var newUrl = new URL(url, import.meta.VITE_API_BASE_URL);
+    var newUrl = new URL(url, import.meta.env.VITE_API_BASE_URL);
     return newUrl.pathname + newUrl.search;
   };
+  var queryKey = ["data", trimUrlForKey(url)];
   var queryFn = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var _yield$axios$get, data;
@@ -67,12 +66,12 @@ export var useQueryData = function useQueryData(endpoint) {
     };
   }();
   return _objectSpread(_objectSpread({}, useQuery({
-    queryKey: ["data", trimUrlForKey(url)],
+    queryKey: queryKey,
     queryFn: queryFn,
     staleTime: (_options$staleTime = options.staleTime) !== null && _options$staleTime !== void 0 ? _options$staleTime : 60000,
     enabled: !!url,
-    // disables call if URL is falsey
-    retry: 1
+    // disables call if URL is falsy
+    retry: (_options$retry = options.retry) !== null && _options$retry !== void 0 ? _options$retry : 1
   })), {}, {
     setUrl: setUrl
   });
