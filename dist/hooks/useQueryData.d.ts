@@ -17,6 +17,7 @@ export function useQueryData<T = unknown>(
     endpoint: string,
     options?: {
         staleTime?: number,
-        retry?: boolean | number
+        retry?: boolean | number,
+        fetchTimeout?: number
     }
 ): UseQueryResult<T> & { setUrl: (url: string) => void }
