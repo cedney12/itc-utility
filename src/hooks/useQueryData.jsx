@@ -10,7 +10,10 @@ import { useState } from "react"
  * @param {object} [options]
  * @param {number} [options.staleTime] Time by which the data goes stale and must be recalled, in ms
  * @param {number} [options.retry] If `true`, retries infinitely. If `false`, never retries. If a number, retries that many times
- * @returns {object} { data, error, isLoading, refetch, setUrl }
+ * @param {number} [options.fetchTimeout] Time to pause for fetching (and refetching). This is mostly used
+ * to stop flashing loading screens. Default `0`
+ * 
+ * @returns The result from useQuery and a function to update the URL.
  * 
  * @category Hooks
  * @module useQueryData
@@ -27,7 +30,7 @@ export const useQueryData = (endpoint, options = {}) => {
     const queryKey = ["data", trimUrlForKey(url)]
 
     const queryFn = async () => {
-        const { data } = await axios.get(url)
+        const { data } = await axios.get(url, { timeout: options.fetchTimeout ?? 0 })
         return data
     }
 
