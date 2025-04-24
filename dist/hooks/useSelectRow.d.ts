@@ -6,25 +6,23 @@
  * @param options.debug Whether to log debug information.
  * @returns An object containing the selected row, setter, and selection handler.
  */
-declare module "itc-utility/dist/hooks/useSelectRow" {
-    export function useSelectRow<T>(
-        data: T[],
-        options?: { field?: keyof T; debug?: boolean }
-    ): {
-        /**
-         * The currently selected row.
-         */
-        selectedRow: Partial<T>
+export function useSelectRow<T>(
+    data: T[],
+    options?: { field?: keyof T; debug?: boolean }
+): {
+    /**
+     * The currently selected row.
+     */
+    selectedRow: Partial<T>
 
-        /**
-         * Function to manually set the selected row.
-         */
-        setSelectedRow: (row: Partial<T>) => void
+    /**
+     * Function to manually set the selected row.
+     */
+    setSelectedRow: (row: Partial<T>) => void
 
-        /**
-         * Handles row selection based on an AG Grid RowSelectedEvent.
-         * @param params The event parameters from AG Grid.
-         */
-        handleSelectRow: (params: object) => void
-    }
+    /**
+     * Handles row selection based on an AG Grid RowSelectedEvent.
+     * @param params The event parameters from AG Grid.
+     */
+    handleSelectRow: (params: object) => void
 }

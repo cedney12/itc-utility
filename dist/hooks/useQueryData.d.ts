@@ -8,12 +8,10 @@ import { UseQueryResult } from "@tanstack/react-query"
  * @param options Optional configuration for stale time and retry behavior.
  * @returns The result from useQuery and a function to update the URL.
  */
-declare module "itc-utility/dist/hooks/useQueryData" {
-    export function useQueryData<T = unknown>(
-        endpoint: string,
-        options?: {
-            staleTime?: number,
-            retry?: boolean | number
-        }
-    ): UseQueryResult<T> & { setUrl: (url: string) => void }
-}
+export function useQueryData<T = unknown>(
+    endpoint: string,
+    options?: {
+        staleTime?: number,
+        retry?: boolean | number
+    }
+): UseQueryResult<T> & { setUrl: (url: string) => void }
