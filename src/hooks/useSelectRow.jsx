@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { isEmpty } from 'lodash'
+import { isEmpty, find } from 'lodash'
 import { useEffect, useState } from 'react'
 
 /**
@@ -45,7 +45,7 @@ export const useSelectRow = (data, options = {}) => {
 
     useEffect(() => {
         if (!isEmpty(selectedRow) && !isEmpty(data)) {
-            setSelectedRow((data && data.find(item => item[field] === selectedRow[field])) ?? {})
+            setSelectedRow(find(data, item => item[field] === selectedRow[field]) ?? {})
         }
     }, [data])
 
