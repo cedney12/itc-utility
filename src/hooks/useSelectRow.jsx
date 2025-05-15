@@ -45,7 +45,7 @@ export const useSelectRow = (data, options = {}) => {
 
     useEffect(() => {
         if (!isEmpty(selectedRow) && !isEmpty(data)) {
-            setSelectedRow(data.find(item => item[field] === selectedRow[field]) ?? {})
+            setSelectedRow((data && data.find(item => item[field] === selectedRow[field])) ?? {})
         }
     }, [data])
 

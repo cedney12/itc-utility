@@ -54,10 +54,10 @@ export var useSelectRow = function useSelectRow(data) {
   }, [selectedRow]);
   useEffect(function () {
     if (!isEmpty(selectedRow) && !isEmpty(data)) {
-      var _data$find;
-      setSelectedRow((_data$find = data.find(function (item) {
+      var _ref;
+      setSelectedRow((_ref = data && data.find(function (item) {
         return item[field] === selectedRow[field];
-      })) !== null && _data$find !== void 0 ? _data$find : {});
+      })) !== null && _ref !== void 0 ? _ref : {});
     }
   }, [data]);
   return {
