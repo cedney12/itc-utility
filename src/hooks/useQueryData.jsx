@@ -56,5 +56,6 @@ export const useQueryData = (endpoint, options = {}) => {
             select: shapeNormalizer
         }),
         setUrl,
+        url
     }
 }

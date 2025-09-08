@@ -91,6 +91,7 @@ export var useQueryData = function useQueryData(endpoint) {
     retry: (_options$retry = options.retry) !== null && _options$retry !== void 0 ? _options$retry : 1,
     select: shapeNormalizer
   })), {}, {
-    setUrl: setUrl
+    setUrl: setUrl,
+    url: url
   });
 };
