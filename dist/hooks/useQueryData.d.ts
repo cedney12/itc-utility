@@ -20,4 +20,4 @@ export function useQueryData<T = unknown>(
         retry?: boolean | number,
         fetchTimeout?: number
     }
-): UseQueryResult<T> & { setUrl: (url: string) => void }
+): UseQueryResult<T> & { setUrl: (url: string) => void, url?: string }

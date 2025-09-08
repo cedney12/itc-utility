@@ -14,7 +14,7 @@ import { useState } from "react"
  * to stop flashing loading screens. Default `0`
  * @param {"array" | "object"} [options.dataShape] Whether the data should be an array or an object
  * 
- * @returns The result from useQuery and a function to update the URL.
+ * @returns The result from useQuery and utilities to view and update the current URL.
  * 
  * @category Hooks
  * @module useQueryData
