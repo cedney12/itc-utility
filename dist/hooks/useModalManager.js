@@ -23,7 +23,10 @@ export const useModalManager = (modalConfig) => {
         return (_jsx(ModalComponent, { open: true, onClose: closeModal, ...props }));
     };
     const isModalOpen = (type) => {
-        return modalState.type === type;
+        if (type) {
+            return modalState.type === type;
+        }
+        return modalState.type !== null;
     };
     return {
         openModal,
