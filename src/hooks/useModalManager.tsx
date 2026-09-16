@@ -48,8 +48,11 @@ export const useModalManager = (modalConfig: ModalConfig) => {
         )
     }
 
-    const isModalOpen = (type: string): boolean => {
-        return modalState.type === type
+    const isModalOpen = (type?: string): boolean => {
+        if (type) {
+            return modalState.type === type
+        }
+        return modalState.type !== null
     }
 
     return {
